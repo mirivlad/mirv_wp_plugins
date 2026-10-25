@@ -1,0 +1,7 @@
+# Local builds, generated packages, IDE state
+dist/
+*.zip
+.DS_Store
+.idea/
+.vscode/
+__pycache__/

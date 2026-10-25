@@ -1,0 +1,23 @@
+name: Validate plugins
+on:
+  push:
+    branches: [main]
+    paths:
+      - "plugins/**"
+      - "scripts/**"
+      - ".github/workflows/**"
+  pull_request:
+    paths:
+      - "plugins/**"
+      - "scripts/**"
+      - ".github/workflows/**"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lint-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check syntax, archives and checksums
+        run: bash scripts/check.sh

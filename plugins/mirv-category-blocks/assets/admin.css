@@ -1,0 +1,69 @@
+/* MIRV Category Blocks: admin */
+
+.mcb-admin-page .mcb-card {
+  max-width: 1080px;
+  margin: 1.1rem 0;
+  padding: 1rem 1.2rem;
+  border: 1px solid #dcdcde;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.mcb-admin-page .mcb-card h2 {
+  margin-top: 0;
+}
+
+.mcb-sections-table th:first-child,
+.mcb-sections-table td:first-child {
+  width: 56px;
+  text-align: center;
+}
+
+.mcb-sections-table th:nth-child(4),
+.mcb-sections-table td:nth-child(4) {
+  width: 90px;
+}
+
+.mcb-sections-table th:last-child,
+.mcb-sections-table td:last-child {
+  width: 90px;
+}
+
+.mcb-sections-table input.regular-text {
+  width: 100%;
+  max-width: 360px;
+}
+
+.mcb-sections-table select {
+  min-width: 220px;
+}
+
+
+/* v0.4.1: hierarchical category selector */
+
+.mcb-category-children-option {
+  display: block;
+  margin-top: 7px;
+  color: #50575e;
+  font-size: 12px;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.mcb-category-children-option input {
+  margin-top: 0;
+}
+
+/* v0.4.3: per-section publication date */
+.mcb-section-option {
+  display: block;
+  margin-top: 7px;
+  color: #50575e;
+  font-size: 12px;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.mcb-section-option input {
+  margin-top: 0;
+}

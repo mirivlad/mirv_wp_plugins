@@ -1,0 +1,38 @@
+name: Publish individual plugin
+on:
+  push:
+    tags:
+      - "mirv-projects-v*"
+      - "mirv-category-blocks-v*"
+      - "mirv-plugin-manager-v*"
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and validate tagged release
+        run: |
+          bash scripts/package.sh "$GITHUB_REF_NAME"
+          bash scripts/check.sh
+          case "$GITHUB_REF_NAME" in
+            mirv-projects-v*) SLUG=mirv-projects ;;
+            mirv-category-blocks-v*) SLUG=mirv-category-blocks ;;
+            mirv-plugin-manager-v*) SLUG=mirv-plugin-manager ;;
+            *) exit 2 ;;
+          esac
+          (cd dist && sha256sum -c "$SLUG.zip.sha256")
+          unzip -Z -1 "dist/$SLUG.zip" | grep -Fx "$SLUG/$SLUG.php"
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          case "$GITHUB_REF_NAME" in
+            mirv-projects-v*) SLUG=mirv-projects ;;
+            mirv-category-blocks-v*) SLUG=mirv-category-blocks ;;
+            mirv-plugin-manager-v*) SLUG=mirv-plugin-manager ;;
+            *) exit 2 ;;
+          esac
+          gh release create "$GITHUB_REF_NAME" "dist/$SLUG.zip" "dist/$SLUG.zip.sha256" \
+            --title "$SLUG ${GITHUB_REF_NAME#"$SLUG-v"}" --generate-notes --verify-tag
