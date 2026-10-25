@@ -53,3 +53,8 @@
 .mirvp-now .mirv-home-now-card h3 {font-size:1.12rem; line-height:1.35; margin:0;}
 .mirvp-now .mirv-home-now-card p {font-size:.89rem; line-height:1.55; margin:.2rem 0 0; color:#44536a;}
 @media(max-width:750px){.mirvp-now .mirv-home-now-grid{grid-template-columns:1fr;}}
+
+
+/* Keep the explicit one-column choice on tablets as well as desktops.
+   On phones, every catalog grid becomes one column as usual. */
+.mirvp-grid--single { grid-template-columns: minmax(0, 1fr); }

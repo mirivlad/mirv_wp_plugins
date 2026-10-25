@@ -23,3 +23,5 @@ Unpublished migrated projects also hide their original public pages (HTTP 404); 
 Catalog, legacy project pages and homepage caches are invalidated after project edits, deletion, category changes and reordering.
 
 Settings now let you select a catalogue page and change the project permalink prefix. Fresh activation creates a simple catalogue page if none exists. Homepage cards have self-contained styling.
+
+Version 1.0.5: Configure pinned/featured catalogue cards independently (1-4 columns, default 3), including responsive single-column behavior.

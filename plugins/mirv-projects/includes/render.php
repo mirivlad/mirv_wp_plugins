@@ -45,10 +45,13 @@ function mirvp_render_catalog() {
                 <a href="#<?php echo esc_attr($g->slug); ?>"><?php echo esc_html($g->name); ?></a>
             <?php endforeach; ?>
         </nav>
-        <?php if ($featured): ?>
+        <?php if ($featured):
+            $featured_columns = (int)get_option('mirvp_featured_columns', 3);
+            if (!in_array($featured_columns, [1, 2, 3, 4], true)) $featured_columns = 3; ?>
             <section id="mirvp-featured" class="mirvp-section">
-                <h2>Избранное</h2><div class="mirvp-grid mirvp-grid--cards" style="--mirvp-columns:3">
-                <?php foreach ($featured as $p) echo mirvp_render_card($p); ?>
+                <h2>Избранное</h2>
+                <div class="mirvp-grid mirvp-grid--cards mirvp-grid--featured<?php echo $featured_columns === 1 ? ' mirvp-grid--single' : ''; ?>" style="--mirvp-columns:<?php echo esc_attr($featured_columns); ?>">
+                    <?php foreach ($featured as $p) echo mirvp_render_card($p); ?>
                 </div>
             </section>
         <?php endif; ?>

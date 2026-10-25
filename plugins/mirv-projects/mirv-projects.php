@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MIRV Projects
  * Description: Управляемый каталог публичных проектов, страницы проектов и блок на главной.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Mirivlad
  * Requires PHP: 8.0
  * Requires at least: 5.8
@@ -13,7 +13,7 @@ defined('ABSPATH') || exit;
 
 define('MIRVP_DIR', plugin_dir_path(__FILE__));
 define('MIRVP_URL', plugin_dir_url(__FILE__));
-define('MIRVP_VERSION', '1.0.4');
+define('MIRVP_VERSION', '1.0.5');
 
 require_once MIRVP_DIR . 'includes/render.php';
 require_once MIRVP_DIR . 'includes/admin.php';

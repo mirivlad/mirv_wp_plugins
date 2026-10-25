@@ -83,6 +83,18 @@ function mirvp_admin_catalog() {
         <?php wp_editor((string)get_option('mirvp_catalog_intro',''),'mirvp_catalog_intro',['textarea_name'=>'mirvp_catalog_intro','textarea_rows'=>5,'media_buttons'=>false,'teeny'=>true]); ?>
         <p><label for="mirvp-footer">Текст после категорий (разрешён HTML)</label></p>
         <?php wp_editor((string)get_option('mirvp_catalog_footer',''),'mirvp_catalog_footer',['textarea_name'=>'mirvp_catalog_footer','textarea_rows'=>5,'media_buttons'=>false,'teeny'=>true]); ?>
+        <h2>Закреплённые проекты</h2>
+        <p><label for="mirvp-featured-columns"><strong>Количество колонок для закреплённых проектов</strong></label>
+        <?php
+            $featured_columns = (int)get_option('mirvp_featured_columns', 3);
+            if (!in_array($featured_columns, [1, 2, 3, 4], true)) $featured_columns = 3;
+        ?>
+        <select id="mirvp-featured-columns" name="mirvp_featured_columns">
+            <?php foreach ([1, 2, 3, 4] as $column_count): ?>
+                <option value="<?php echo (int)$column_count; ?>" <?php selected($featured_columns, $column_count); ?>><?php echo (int)$column_count; ?></option>
+            <?php endforeach; ?>
+        </select></p>
+        <p class="description">Применяется только к блоку «Избранное» в каталоге. У остальных категорий свои настройки колонок. На узких экранах карточки адаптируются автоматически.</p>
         <h2>Разделы каталога</h2>
         <table class="widefat striped"><thead><tr><th>Порядок</th><th>Раздел</th><th>Показывать</th><th>Режим</th><th>Колонок</th></tr></thead>
         <tbody class="mirvp-sortable">
@@ -130,6 +142,12 @@ add_action('admin_post_mirvp_save_catalog', function() {
     if (isset($_POST['mirvp_catalog_page_id'])) {
         $id = absint($_POST['mirvp_catalog_page_id']);
         if (!$id || get_post_type($id)==='page') update_option('mirvp_catalog_page_id',$id);
+    }
+    if (isset($_POST['mirvp_featured_columns']) && is_scalar($_POST['mirvp_featured_columns'])) {
+        $featured_columns = (int)wp_unslash($_POST['mirvp_featured_columns']);
+        if (in_array($featured_columns, [1, 2, 3, 4], true)) {
+            update_option('mirvp_featured_columns', $featured_columns);
+        }
     }
     $new_base = sanitize_title((string)($_POST['mirvp_project_base'] ?? 'public_projects'));
     if ($new_base && $new_base !== get_option('mirvp_project_base','public_projects')) {
